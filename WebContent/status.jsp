@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -43,6 +43,8 @@
 				<div class="ui-grid-a ui-responsive">
 
 					<div class="ui-block-a" id='clientPanel'></div>
+					<br>
+					<div class="ui-block-a" id='estimarePanel'></div>
 
 
 				</div>
@@ -110,6 +112,7 @@
 	<div id="coordClient" style="visibility: hidden">${sessionScope.coordClient}</div>
 	<div id="numeClient" style="visibility: hidden">${sessionScope.numeClient}</div>
 	<div id="articole" style="visibility: hidden">${sessionScope.articole}</div>
+	<div id="estimare" style="visibility: hidden">${sessionScope.estimare}</div>
 
 
 </body>

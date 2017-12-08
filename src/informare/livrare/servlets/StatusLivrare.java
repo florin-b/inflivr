@@ -16,6 +16,7 @@ import com.google.maps.model.LatLng;
 import informare.livrare.beans.Articol;
 import informare.livrare.beans.Client;
 import informare.livrare.model.OperatiiBorderou;
+import informare.livrare.model.OperatiiClient;
 import informare.livrare.model.OperatiiCoordonate;
 
 @WebServlet("/stat")
@@ -37,15 +38,17 @@ public class StatusLivrare extends HttpServlet {
 
 		LatLng coordMasina = new OperatiiCoordonate().getCoordonateMasina(nrBorderou, codClient);
 
-		// afisarea tuturor adreselor pentru un client
 		Client client = new OperatiiCoordonate().getCoordonateAdresa(nrBorderou, codClient);
 
 		List<Articol> articole = new OperatiiBorderou().getArticoleComanda(nrBorderou, codClient);
+
+		String estimareLivrare = new OperatiiClient().getTimpSosireClient(nrBorderou, codClient);
 
 		request.getSession().setAttribute("coordMasina", coordMasina.toString());
 		request.getSession().setAttribute("coordClient", client.getCoords().toString());
 		request.getSession().setAttribute("numeClient", client.getNume());
 		request.getSession().setAttribute("articole", new Gson().toJson(articole));
+		request.getSession().setAttribute("estimare", estimareLivrare);
 
 		request.getRequestDispatcher("/status.jsp").forward(request, response);
 	}

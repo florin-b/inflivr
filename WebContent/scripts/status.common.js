@@ -12,17 +12,21 @@ $(document).on('pagecreate', '#status', function() {
 
 });
 
-function testObjects() {
-
-}
-
 function afisClient() {
 	var numeClient = $('#numeClient').text();
 
+	var estimareSosire = $('#estimare').text();
+
 	if (numeClient.trim().length > 0)
-		$('#clientPanel').html('Livrare client ' + numeClient);
+		$('#clientPanel').html(' ' + numeClient);
 	else
 		$('#clientPanel').html(' ');
+
+	if (estimareSosire.trim().length > 0)
+		$('#estimarePanel').html(
+				'Livrarea se va face in aproximativ ' + numeClient);
+	else
+		$('#estimarePanel').html(' ');
 
 }
 

@@ -44,4 +44,95 @@ public class SqlQueries {
 		return sqlString.toString();
 	}
 
+	public static String getVitezaMedieMF() {
+		StringBuilder str = new StringBuilder();
+
+		str.append(" select avg(vitezamedie) from sapprd.zvitezemedii ");
+		str.append(" where datac >=? and tipmasina=? and filiala=? ");
+
+		return str.toString();
+	}
+
+	public static String getDateMasinaBord() {
+
+		StringBuilder str = new StringBuilder();
+
+		str.append(" select avg(a.vitezamedie) vm, k.user1 from sapprd.zvitezemedii a, sapprd.aufk k, borderouri b ");
+		str.append(" where k.mandt='900' and b.numarb =? and b.masina = k.ktext ");
+		str.append(" and a.datac >=? and a.tipmasina=k.user1 and a.filiala=b.fili group by k.user1 ");
+
+		return str.toString();
+	}
+
+	public static String getTipMasina() {
+
+		StringBuilder str = new StringBuilder();
+		str.append(
+				" select k.user1, b.fili from sapprd.aufk k, borderouri b where mandt = '900' and b.numarb =? and b.masina = k.ktext ");
+
+		return str.toString();
+
+	}
+
+	public static String getPozitieMasina() {
+		StringBuilder str = new StringBuilder();
+
+		str.append(" select latitude, longitude, mileage, speed from gps_index where device_id = ");
+		str.append(" (select id from gps_masini where nr_masina = ");
+		str.append(" (select replace(masina,'-','') nrauto from ( ");
+		str.append(" select masina from websap.borderouri where numarb =?))) ");
+
+		return str.toString();
+	}
+
+	public static String addCoordAdresa() {
+		StringBuilder str = new StringBuilder();
+		str.append(
+				" insert into sapprd.zcoordadrese (mandt, idadresa, latitudine, longitudine) values ('900',?,?,?)  ");
+		return str.toString();
+
+	}
+
+	public static String getClientiBorderouFromDB() {
+
+		StringBuilder str = new StringBuilder();
+		str.append(" select a.codclient, a.codadresa, a.distclant, a.initkm from ");
+		str.append(" sapprd.ztraseuborderou a where a.borderou=? ");
+		str.append(" order by to_number(a.poz) ");
+		return str.toString();
+	}
+
+	public static String getClientiBorderou() {
+
+		StringBuilder str = new StringBuilder();
+
+		str.append(" select  a.cod_client, c.nume, a.adresa_client, b.city1,b.street,b.house_num1,b.region, ");
+		str.append(" nvl(d.latitude,'0') latitudine, nvl(d.longitude, '0') longitudine , a.adresa_client from ");
+		str.append(" sapprd.zdocumentesms a, sapprd.adrc b, clienti c, sapprd.zadreseclienti d,  ");
+		str.append(" sapprd.zordinelivrari o where ");
+		str.append(" a.nr_bord =?  and d.codadresa(+) = a.adresa_client and d.codclient(+) = a.cod_client ");
+		str.append(" and b.client = '900' and c.cod = a.cod_client ");
+		str.append(" and b.addrnumber = a.adresa_client ");
+		str.append(" and o.borderou(+) = a.nr_bord and o.client(+) = a.cod_client   ");
+		str.append(" and o.codadresa(+) = a.adresa_client  order by o.pozitie ");
+
+		return str.toString();
+	}
+
+	public static String saveEtapeBorderou() {
+		StringBuilder str = new StringBuilder();
+		str.append(
+				" insert into sapprd.ztraseuborderou (mandt, borderou, poz, codclient, codadresa, distclant, initkm ) values ('900',?,?,?,?,?,?)");
+		return str.toString();
+	}
+
+	public static String getPozitieLivrare() {
+		StringBuilder str = new StringBuilder();
+
+		str.append(" select pozitie from sapprd.zordinelivrari where mandt='900' and borderou=? and client=? ");
+
+		return str.toString();
+
+	}
+
 }
