@@ -22,31 +22,30 @@ public class TestClass {
 
 		// System.out.println(client);
 
-		
-		
-		
-		//0001798066-4110101808.
-		
-		
-		  
-		  String nrBorderou = "0001798066"; String codClient = "4110101808";
-		  
-		  LatLng coordMasina = new
-		  OperatiiCoordonate().getCoordonateMasina(nrBorderou, codClient);
-		  
-		  Client client = new
-		  OperatiiCoordonate().getCoordonateAdresa(nrBorderou, codClient);
-		  
-		  List<Articol> articole = new
-		  OperatiiBorderou().getArticoleComanda(nrBorderou, codClient);
-		  
-		  String estimareLivrare = new
-		  OperatiiClient().getTimpSosireClient(nrBorderou, codClient);
-		  
-		  
-		  System.out.println("estimare" + estimareLivrare);
-		  
-		 
+		// 0001798066-4110101808.
+
+		OperatiiBorderou.logEstimare("123", "ert", "estimare");
+
+		/*
+		 * 
+		 * String nrBorderou = "0001798066"; String codClient = "4110101808";
+		 * 
+		 * LatLng coordMasina = new
+		 * OperatiiCoordonate().getCoordonateMasina(nrBorderou, codClient);
+		 * 
+		 * Client client = new
+		 * OperatiiCoordonate().getCoordonateAdresa(nrBorderou, codClient);
+		 * 
+		 * List<Articol> articole = new
+		 * OperatiiBorderou().getArticoleComanda(nrBorderou, codClient);
+		 * 
+		 * String estimareLivrare = new
+		 * OperatiiClient().getTimpSosireClient(nrBorderou, codClient);
+		 * 
+		 * 
+		 * System.out.println("estimare" + estimareLivrare);
+		 * 
+		 */
 
 	}
 

@@ -37,39 +37,19 @@ public class DBManager {
 		return oracleDS;
 	}
 
-	private static DataSource getProdDataSource_Env() {
-		InitialContext initContext;
-		DataSource ds = null;
+	public DataSource getTestDataSource() {
+
+		OracleDataSource oracleDS = null;
 		try {
-			initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			ds = (DataSource) envContext.lookup("jdbc/myoracle_prod");
-		} catch (NamingException e) {
-			logger.error(e.toString());
+
+			oracleDS = new OracleDataSource();
+			oracleDS.setURL("jdbc:oracle:thin:@10.1.3.89:1527:tes");
+			oracleDS.setUser("WEBSAP");
+			oracleDS.setPassword("2INTER7");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		return ds;
-	}
-
-	public static DataSource getTestInstance() {
-		if (dataSourceTest == null)
-			dataSourceTest = getTestDataSource();
-
-		return dataSourceTest;
-	}
-
-	private static DataSource getTestDataSource() {
-		InitialContext initContext;
-		DataSource ds = null;
-		try {
-			initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			ds = (DataSource) envContext.lookup("jdbc/myoracle_tes");
-		} catch (NamingException e) {
-			logger.error(e.toString());
-		}
-
-		return ds;
+		return oracleDS;
 	}
 
 	public static void closeConnection(ResultSet rs, Connection conn) {

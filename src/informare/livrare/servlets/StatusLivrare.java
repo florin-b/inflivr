@@ -1,7 +1,6 @@
 package informare.livrare.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -50,6 +49,11 @@ public class StatusLivrare extends HttpServlet {
 		request.getSession().setAttribute("articole", new Gson().toJson(articole));
 		request.getSession().setAttribute("estimare", estimareLivrare);
 
+		if (estimareLivrare.isEmpty())
+			estimareLivrare = " ";
+
+		OperatiiBorderou.logEstimare(codClient, nrBorderou, estimareLivrare);
+
 		request.getRequestDispatcher("/status.jsp").forward(request, response);
 	}
 
@@ -57,37 +61,6 @@ public class StatusLivrare extends HttpServlet {
 			throws ServletException, IOException {
 
 		doGet(request, response);
-	}
-
-	private List<Articol> getArticole() {
-		List<Articol> listArticole = new ArrayList<>();
-
-		Articol articol = new Articol();
-		articol.setNume("DULAP JOS89X68X39 1P/ARMOIRE");
-		articol.setCantitate("3");
-		articol.setUm("BUC");
-		listArticole.add(articol);
-
-		articol = new Articol();
-		articol.setNume("RIGOLA SPORT N125 FANTA CURBATA");
-		articol.setCantitate("5");
-		articol.setUm("BUC");
-		listArticole.add(articol);
-
-		articol = new Articol();
-		articol.setNume("ABS STEJAR TOBACCO 43X2");
-		articol.setCantitate("15");
-		articol.setUm("M2");
-		listArticole.add(articol);
-
-		articol = new Articol();
-		articol.setNume("TAMPLARIE PVC APOLO EXCLUSIV");
-		articol.setCantitate("2");
-		articol.setUm("PUN");
-		listArticole.add(articol);
-
-		return listArticole;
-
 	}
 
 }

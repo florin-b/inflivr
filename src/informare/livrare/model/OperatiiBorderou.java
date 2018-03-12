@@ -202,4 +202,20 @@ public class OperatiiBorderou {
 		return pozitieLivrare;
 	}
 
+	public static void logEstimare(String codClient, String codBorderou, String estimare) {
+		try (Connection conn = new DBManager().getTestDataSource().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SqlQueries.addEstimare())) {
+
+			stmt.setString(1, codClient);
+			stmt.setString(2, codBorderou);
+			stmt.setString(3, estimare);
+
+			stmt.execute();
+
+		} catch (SQLException e) {
+			logger.error(informare.livrare.utils.Utils.getStackTrace(e));
+		}
+
+	}
+
 }

@@ -535,3 +535,38 @@
 	at informare.livrare.model.OperatiiClient.getTimpSosireClient(OperatiiClient.java:149)
 	at informare.livrare.test.TestClass.main(TestClass.java:40)
 
+12-Mar-2018 10:22:49 [main] ERROR informare.livrare.model.OperatiiBorderou - java.sql.SQLException: Invalid column index
+	at oracle.jdbc.driver.OraclePreparedStatement.setStringInternal(OraclePreparedStatement.java:5386)
+	at oracle.jdbc.driver.OraclePreparedStatement.setString(OraclePreparedStatement.java:5374)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setString(OraclePreparedStatementWrapper.java:282)
+	at informare.livrare.model.OperatiiBorderou.logEstimare(OperatiiBorderou.java:211)
+	at informare.livrare.test.TestClass.main(TestClass.java:30)
+
+12-Mar-2018 10:23:12 [main] ERROR informare.livrare.model.OperatiiBorderou - java.sql.SQLException: Invalid column index
+	at oracle.jdbc.driver.OraclePreparedStatement.setStringInternal(OraclePreparedStatement.java:5386)
+	at oracle.jdbc.driver.OraclePreparedStatement.setString(OraclePreparedStatement.java:5374)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setString(OraclePreparedStatementWrapper.java:282)
+	at informare.livrare.model.OperatiiBorderou.logEstimare(OperatiiBorderou.java:211)
+	at informare.livrare.test.TestClass.main(TestClass.java:30)
+
+12-Mar-2018 10:23:24 [main] ERROR informare.livrare.model.OperatiiBorderou - java.sql.SQLException: Invalid column index
+	at oracle.jdbc.driver.OraclePreparedStatement.setStringInternal(OraclePreparedStatement.java:5386)
+	at oracle.jdbc.driver.OraclePreparedStatement.setString(OraclePreparedStatement.java:5374)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setString(OraclePreparedStatementWrapper.java:282)
+	at informare.livrare.model.OperatiiBorderou.logEstimare(OperatiiBorderou.java:211)
+	at informare.livrare.test.TestClass.main(TestClass.java:30)
+
+12-Mar-2018 10:24:24 [main] ERROR informare.livrare.model.OperatiiBorderou - java.sql.SQLException: Invalid column index
+	at oracle.jdbc.driver.OraclePreparedStatement.setStringInternal(OraclePreparedStatement.java:5386)
+	at oracle.jdbc.driver.OraclePreparedStatement.setString(OraclePreparedStatement.java:5374)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setString(OraclePreparedStatementWrapper.java:282)
+	at informare.livrare.model.OperatiiBorderou.logEstimare(OperatiiBorderou.java:211)
+	at informare.livrare.test.TestClass.main(TestClass.java:30)
+
+12-Mar-2018 10:30:49 [main] ERROR informare.livrare.model.OperatiiBorderou - java.sql.SQLException: Invalid column index
+	at oracle.jdbc.driver.OraclePreparedStatement.setStringInternal(OraclePreparedStatement.java:5386)
+	at oracle.jdbc.driver.OraclePreparedStatement.setString(OraclePreparedStatement.java:5374)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setString(OraclePreparedStatementWrapper.java:282)
+	at informare.livrare.model.OperatiiBorderou.logEstimare(OperatiiBorderou.java:211)
+	at informare.livrare.test.TestClass.main(TestClass.java:30)
+

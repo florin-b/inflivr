@@ -159,4 +159,15 @@ public class SqlQueries {
 
 	}
 
+	public static String addEstimare() {
+		StringBuilder str = new StringBuilder();
+
+		str.append(" insert into sapprd.zestimarelivrare(mandt, codclient, borderou, estimare, datac, orac ) values ");
+		str.append(
+				" ('900',?,?,?, (select to_char(sysdate,'yyyymmdd') from dual),(select to_char(sysdate,'hh24mi') from dual))");
+
+		return str.toString();
+
+	}
+
 }
