@@ -87,10 +87,33 @@ public class SqlQueries {
 
 	public static String addCoordAdresa() {
 		StringBuilder str = new StringBuilder();
-		str.append(
-				" insert into sapprd.zcoordadrese (mandt, idadresa, latitudine, longitudine) values ('900',?,?,?)  ");
+		str.append(" insert into sapprd.zcoordadrese (mandt, idadresa, latitudine, longitudine) ");
+		str.append(" values ('900',?,?,?)  ");
 		return str.toString();
 
+	}
+
+	public static String addCoordAdresaClient() {
+		StringBuilder str = new StringBuilder();
+
+		str.append(" insert into sapprd.zadreseclienti (mandt, codclient, codadresa,  latitude, longitude) ");
+		str.append(" values ('900',?,?,?,?)  ");
+
+		return str.toString();
+	}
+
+	public static String verificaAdresa() {
+		StringBuilder str = new StringBuilder();
+		str.append(" select 1 from sapprd.zadreseclienti where mandt='900' and idadresa = ? ");
+
+		return str.toString();
+	}
+
+	public static String verificaAdresaClient() {
+		StringBuilder str = new StringBuilder();
+		str.append(" select 1 from sapprd.zadreseclienti where mandt='900' and codclient = ? and codadresa = ? ");
+
+		return str.toString();
 	}
 
 	public static String getClientiBorderouFromDB() {
@@ -122,7 +145,8 @@ public class SqlQueries {
 	public static String saveEtapeBorderou() {
 		StringBuilder str = new StringBuilder();
 		str.append(
-				" insert into sapprd.ztraseuborderou (mandt, borderou, poz, codclient, codadresa, distclant, initkm ) values ('900',?,?,?,?,?,?)");
+				" insert into sapprd.ztraseuborderou (mandt, borderou, poz, codclient, codadresa, distclant, initkm ) ");
+		str.append(" values ('900',?,?,?,?,?,?)");
 		return str.toString();
 	}
 

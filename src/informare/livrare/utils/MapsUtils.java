@@ -2,6 +2,7 @@ package informare.livrare.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,12 +20,14 @@ import com.google.maps.model.TravelMode;
 import informare.livrare.beans.Address;
 import informare.livrare.beans.BeanClient;
 import informare.livrare.beans.CoordonateGps;
+import informare.livrare.beans.GoogleContext;
 import informare.livrare.beans.StareMasina;
-
 
 public class MapsUtils {
 
 	private static final Logger logger = LogManager.getLogger(MapsUtils.class);
+
+	private static final int MAX_KEYS = 5;
 
 	public static long distanceRealXtoY(double lat1, double lon1, double lat2, double lon2) throws Exception {
 
@@ -45,6 +48,9 @@ public class MapsUtils {
 		List<String> wayPoints = new ArrayList<>();
 		String stopPoint = "";
 
+		Random rand = new Random(System.currentTimeMillis());
+		int value = rand.nextInt((MAX_KEYS - 1) + 1) + 1;
+
 		DirectionsRoute[] routes = null;
 
 		try {
@@ -60,7 +66,7 @@ public class MapsUtils {
 
 			String[] arrayPoints = wayPoints.toArray(new String[wayPoints.size()]);
 
-			GeoApiContext context = new GeoApiContext().setApiKey(Constants.GOOGLE_MAPS_API_KEY);
+			GeoApiContext context = GoogleContext.getContext(value);
 
 			LatLng start = new LatLng(stareMasina.getCoordonateGps().getLatitude(),
 					stareMasina.getCoordonateGps().getLongitude());

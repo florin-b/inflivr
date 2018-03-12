@@ -24,7 +24,7 @@ function afisClient() {
 
 	if (estimareSosire.trim().length > 0)
 		$('#estimarePanel').html(
-				'Livrarea se va face in aproximativ ' + numeClient);
+				'Livrarea se va face in aproximativ ' + estimareSosire);
 	else
 		$('#estimarePanel').html(' ');
 

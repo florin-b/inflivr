@@ -1,15 +1,11 @@
 package informare.livrare.beans;
 
-
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import informare.livrare.model.OperatiiClient;
 import informare.livrare.utils.MapsUtils;
-
-
 
 public class BeanClient {
 
@@ -97,7 +93,12 @@ public class BeanClient {
 				CoordonateGps coordGps = null;
 				try {
 					coordGps = MapsUtils.geocodeAddress(adr);
-					new OperatiiClient().saveCoordonateAdresa(con, adr.getIdAdress(), coordGps);
+
+					OperatiiClient opClient = new OperatiiClient();
+
+					if (!opClient.adresaClientExista(con, adr.getIdAdress(), rs.getString("cod_client")))
+						opClient.adaugaCoordonateClient(con, adr.getIdAdress(), rs.getString("cod_client"), coordGps);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -139,9 +140,9 @@ public class BeanClient {
 
 	@Override
 	public String toString() {
-		return "BeanClient [codClient=" + codClient + ", numeClient=" + numeClient + ", adresa=" + adresa + ", coordGps=" + coordGps + ", codAdresa="
-				+ codAdresa + ", distClPrecedent=" + distClPrecedent + ", initKm=" + initKm + ", smsEmis=" + smsEmis + "]";
+		return "BeanClient [codClient=" + codClient + ", numeClient=" + numeClient + ", adresa=" + adresa
+				+ ", coordGps=" + coordGps + ", codAdresa=" + codAdresa + ", distClPrecedent=" + distClPrecedent
+				+ ", initKm=" + initKm + ", smsEmis=" + smsEmis + "]";
 	}
 
 }
-

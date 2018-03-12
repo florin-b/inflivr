@@ -58,7 +58,7 @@ public class DateTimeUtils {
 
 		if (minute > 0) {
 			if (!strTime.isEmpty())
-				strTime += " si " + minute + " de minute";
+				strTime += " si " + minute + " minute";
 			else
 				strTime += minute + " minute";
 		}

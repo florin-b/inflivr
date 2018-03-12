@@ -2,6 +2,7 @@ package informare.livrare.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,11 +55,89 @@ public class OperatiiClient {
 
 	}
 
+	public void adaugaCoordonateClient(Connection conn, String codAdresa, String codClient, CoordonateGps coords) {
+		try (PreparedStatement prep = conn.prepareStatement(SqlQueries.addCoordAdresaClient());) {
+
+			prep.setString(1, codClient);
+			prep.setString(2, codAdresa);
+			prep.setString(3, String.valueOf(coords.getLatitude()));
+			prep.setString(4, String.valueOf(coords.getLongitude()));
+
+			prep.execute();
+		} catch (SQLException e) {
+			logger.error(informare.livrare.utils.Utils.getStackTrace(e));
+		}
+	}
+
+	public boolean adresaExista(Connection conn, String idAddress) {
+
+		boolean exista = false;
+
+		try (PreparedStatement prep = conn.prepareStatement(SqlQueries.verificaAdresa(),
+				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);) {
+
+			prep.setString(1, idAddress);
+			prep.execute();
+
+			prep.executeQuery();
+
+			ResultSet rs = prep.getResultSet();
+
+			rs.last();
+
+			if (rs.getRow() > 0)
+				exista = true;
+
+		} catch (SQLException e) {
+			logger.error(informare.livrare.utils.Utils.getStackTrace(e));
+		}
+
+		return exista;
+
+	}
+	
+	
+	
+	
+	public boolean adresaClientExista(Connection conn, String codAdresa, String codClient) {
+
+		boolean exista = false;
+
+		try (PreparedStatement prep = conn.prepareStatement(SqlQueries.verificaAdresaClient(),
+				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);) {
+
+			prep.setString(1, codClient);
+			prep.setString(2, codAdresa);
+			prep.execute();
+
+			prep.executeQuery();
+
+			ResultSet rs = prep.getResultSet();
+
+			rs.last();
+
+			if (rs.getRow() > 0)
+				exista = true;
+
+		} catch (SQLException e) {
+			logger.error(informare.livrare.utils.Utils.getStackTrace(e));
+		}
+
+		return exista;
+
+	}
+	
+	
+
 	public String getTimpSosireClient(String nrBorderou, String codClient) {
 		String strTimp = "";
+		double timpSosire = 0;
 
 		OperatiiMasina opMasina = new OperatiiMasina();
 		DateMasina dateMasina = opMasina.getDateMasinaBord(nrBorderou);
+
+		if (dateMasina.getTipMasina() == null)
+			return strTimp;
 
 		StareMasina stareMasina = opMasina.getStareMasina(nrBorderou);
 
@@ -71,8 +150,8 @@ public class OperatiiClient {
 
 			if (!listClienti.isEmpty()) {
 
-				double timpSosire = new OperatiiClient().calculeazaTimpSosireClient(listClienti, stareMasina,
-						dateMasina, nrBorderou, codClient);
+				timpSosire = new OperatiiClient().calculeazaTimpSosireClient(listClienti, stareMasina, dateMasina,
+						nrBorderou, codClient);
 
 				strTimp = DateTimeUtils.getStringTime(timpSosire);
 
@@ -80,7 +159,10 @@ public class OperatiiClient {
 
 		}
 
-		return strTimp;
+		if (timpSosire > 0 && timpSosire <= 6)
+			return strTimp;
+		else
+			return "";
 
 	}
 

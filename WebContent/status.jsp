@@ -86,11 +86,7 @@
 					<div id='listArticole'></div>
 					<br>
 
-
 				</div>
-
-
-
 
 				<div id='infoPanel'>Pentru aceasta livrare nu exista
 					informatii.</div>
