@@ -1,51 +1,15 @@
 package informare.livrare.test;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-
-import com.google.maps.model.LatLng;
-
-import informare.livrare.beans.Articol;
-import informare.livrare.beans.Client;
-import informare.livrare.database.DBManager;
-import informare.livrare.model.OperatiiBorderou;
-import informare.livrare.model.OperatiiClient;
-import informare.livrare.model.OperatiiCoordonate;
+import informare.livrare.model.OperatiiCamion;
 
 public class TestClass {
 
 	public static void main(String[] args) {
 
-		// Client client = new
-		// OperatiiCoordonate().getCoordonateAdresa("0001776208", "4110005312");
+		String dateTraseu = new OperatiiCamion().getTraseuInterval("GL07DRD", "29-05-2018 04:00", "30-05-2018 14:00");
 
-		// System.out.println(client);
-
-		// 0001798066-4110101808.
-
-		OperatiiBorderou.logEstimare("123", "ert", "estimare");
-
-		/*
-		 * 
-		 * String nrBorderou = "0001798066"; String codClient = "4110101808";
-		 * 
-		 * LatLng coordMasina = new
-		 * OperatiiCoordonate().getCoordonateMasina(nrBorderou, codClient);
-		 * 
-		 * Client client = new
-		 * OperatiiCoordonate().getCoordonateAdresa(nrBorderou, codClient);
-		 * 
-		 * List<Articol> articole = new
-		 * OperatiiBorderou().getArticoleComanda(nrBorderou, codClient);
-		 * 
-		 * String estimareLivrare = new
-		 * OperatiiClient().getTimpSosireClient(nrBorderou, codClient);
-		 * 
-		 * 
-		 * System.out.println("estimare" + estimareLivrare);
-		 * 
-		 */
+		System.out.println(dateTraseu.split("@")[0]);
+		System.out.println(dateTraseu.split("@")[1]);
 
 	}
 
