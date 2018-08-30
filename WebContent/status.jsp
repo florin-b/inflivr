@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html">
 <html>
 <head>
@@ -8,7 +6,7 @@
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 
 <link rel="stylesheet"
@@ -62,8 +60,11 @@
 							<div id="map_canvas_status" style="height: 400px">
 
 								<script
-									src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBhGZckc6WAio9WiiLstQTTpVtAvQ7kIEc'></script>
+									src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBsFNT-vjdopb3dI_4hSDfXb2Qv3wqTwZ4'></script>
+
+
 								<script type="text/javascript" src="scripts/status.maps.js"></script>
+
 							</div>
 
 						</div>

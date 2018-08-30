@@ -22,9 +22,11 @@
 <link rel="stylesheet" type="text/css" href="css/OneMarkerStyle.css">
 <link rel="stylesheet" type="text/css" href="css/MarkerLabelStyle.css">
 
+<!-- AIzaSyBhGZckc6WAio9WiiLstQTTpVtAvQ7kIEc -->
+
 
 <script
-	src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBhGZckc6WAio9WiiLstQTTpVtAvQ7kIEc'></script>
+	src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCxk_2WZSl-biwYYWvMA5aHHPoddCN1HEs'></script>
 <script type="text/javascript" src='scripts/markerwithlabel.js'></script>
 
 <script type="text/javascript" src="scripts/traseuSoferi.js"></script>
