@@ -40,6 +40,7 @@ public class SqlQueries {
 		sqlString.append(" and f.mandt = p.mandt ");
 		sqlString.append(" and f.vbelv = p.vbeln ");
 		sqlString.append(" and f.posnv = p.posnr ");
+		sqlString.append(" and lower(ar.nume) not like '%transport%' ");
 
 		return sqlString.toString();
 	}
