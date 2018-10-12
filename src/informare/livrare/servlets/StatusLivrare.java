@@ -27,21 +27,24 @@ public class StatusLivrare extends HttpServlet {
 
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		String params = request.getParameter("p");
 
 		String nrBorderou = params.split("-")[0];
-		String codClient = params.split("-")[1];
+		String codAdresa = params.split("-")[1];
 
-		LatLng coordMasina = new OperatiiCoordonate().getCoordonateMasina(nrBorderou, codClient);
+		LatLng coordMasina = new OperatiiCoordonate().getCoordonateMasina(nrBorderou, codAdresa);
 
-		Client client = new OperatiiCoordonate().getCoordonateAdresa(nrBorderou, codClient);
+		Client client;
+		List<Articol> articole;
 
-		List<Articol> articole = new OperatiiBorderou().getArticoleComanda(nrBorderou, codClient);
+		articole = new OperatiiBorderou().getArticoleComanda(nrBorderou, codAdresa);
+		client = new OperatiiCoordonate().getCoordonateCodAdresa(nrBorderou, codAdresa);
 
-		String estimareLivrare = new OperatiiClient().getTimpSosireClient(nrBorderou, codClient);
+		String estimareLivrare = new OperatiiClient().getTimpSosireClient_Beta(nrBorderou, codAdresa);
 
 		request.getSession().setAttribute("coordMasina", coordMasina.toString());
 		request.getSession().setAttribute("coordClient", client.getCoords().toString());
@@ -52,11 +55,10 @@ public class StatusLivrare extends HttpServlet {
 		if (estimareLivrare.isEmpty())
 			estimareLivrare = " ";
 
-		OperatiiBorderou.logEstimare(codClient, nrBorderou, estimareLivrare);
-
 		request.getRequestDispatcher("/status.jsp").forward(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

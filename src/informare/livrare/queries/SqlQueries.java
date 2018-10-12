@@ -12,7 +12,31 @@ public class SqlQueries {
 
 		return sqlString.toString();
 	}
+	
+	
+	public static String getCoordMasinaAdresa() {
+		StringBuilder sqlString = new StringBuilder();
 
+		sqlString.append(" select i.latitude, i.longitude from gps_masini g, borderouri b, gps_index i where ");
+		sqlString.append(" replace(g.nr_masina,'-','')=  replace(b.masina,'-','') and ");
+		sqlString.append(" b.numarb=? and b.sttrg in ('4','6') and g.id = i.device_id ");
+		sqlString.append(" and not exists (select 1 from  sapprd.zevenimentsofer where document =? and codadresa =?) ");
+
+		return sqlString.toString();
+	}	
+	
+
+	public static String getCoordMasinaBord() {
+		StringBuilder sqlString = new StringBuilder();
+
+		sqlString.append(" select i.latitude, i.longitude from gps_masini g, borderouri b, gps_index i where ");
+		sqlString.append(" replace(g.nr_masina,'-','')=  replace(b.masina,'-','') and ");
+		sqlString.append(" b.numarb=? and b.sttrg in ('4','6') and g.id = i.device_id ");
+		
+
+		return sqlString.toString();
+	}	
+	
 	public static String getCoordAdresa() {
 		StringBuilder sqlString = new StringBuilder();
 
@@ -23,6 +47,40 @@ public class SqlQueries {
 		return sqlString.toString();
 	}
 
+	public static String getCoordCodAdresa() {
+		StringBuilder sqlString = new StringBuilder();
+
+		sqlString.append(" select ad.latitude, ad.longitude, c.nume, t.nume_client from sapprd.zcoordcomenzi ad, sapprd.zdocumentesms b, sapprd.zcomhead_tableta t, ");
+		sqlString.append(" clienti c  where b.nr_bord = ? and b.adresa_client = ? and t.id = b.idcomanda and ad.idcomanda = t.id ");
+		sqlString.append(" and c.cod = t.cod_client ");
+		
+		return sqlString.toString();
+	}	
+	
+	
+	public static String getCoordCodAdresa_Beta() {
+		StringBuilder sqlString = new StringBuilder();
+
+		sqlString.append(" select ad.latitude, ad.longitude, c.nume, t.nume_client from sapprd.zcoordcomenzi ad, sapprd.zdocumentesms b, sapprd.zcomhead_tableta t, ");
+		sqlString.append(" clienti c  where b.nr_bord = ? and b.adresa_client = ? and t.id = b.idcomanda and ad.idcomanda = t.id ");
+		sqlString.append(" and c.cod = t.cod_client ");
+		
+		return sqlString.toString();
+	}		
+	
+	
+	public static String getCoordComanda(){
+		StringBuilder sqlString = new StringBuilder();
+		
+		sqlString.append(" select c.latitude, c.longitude, t.nume_client from sapprd.zcoordcomenzi c, sapprd.zcomhead_tableta t where ");
+		sqlString.append(" c.idcomanda = ? and t.id = c.idcomanda ");
+		
+		
+		return sqlString.toString();
+	}
+	
+	
+	
 	public static String getArticoleComanda() {
 		StringBuilder sqlString = new StringBuilder();
 
@@ -45,6 +103,45 @@ public class SqlQueries {
 		return sqlString.toString();
 	}
 
+	
+	public static String getArticoleComandaGED() {
+		StringBuilder sqlString = new StringBuilder();
+
+		sqlString.append(" select ar.nume, p.kwmeng, p.vrkme ");
+		sqlString.append(" from sapprd.vttp b, sapprd.vbfa f, sapprd.vbap p, sapprd.zdocumentebord d, articole ar, sapprd.zcomhead_tableta t ");
+		sqlString.append(" where b.mandt = '900' ");
+		sqlString.append(" and d.nr_bord = b.tknum ");
+		sqlString.append(" and ar.cod = p.matnr ");
+		sqlString.append(" and b.tknum = ? ");
+		sqlString.append(" and d.cod= t.cod_client ");
+		sqlString.append(" and b.tpnum = d.poz ");
+		sqlString.append(" and b.mandt = f.mandt ");
+		sqlString.append(" and b.vbeln = f.vbeln ");
+		sqlString.append(" and f.vbtyp_v = 'C' ");
+		sqlString.append(" and f.mandt = p.mandt ");
+		sqlString.append(" and f.vbelv = p.vbeln ");
+		sqlString.append(" and f.posnv = p.posnr ");
+		sqlString.append(" and lower(ar.nume) not like '%transport%' ");
+		sqlString.append(" and f.vbelv = t.nrcmdsap and f.vbtyp_n = 'J'");
+		sqlString.append(" and t.mandt='900' and t.id = ?");
+
+		return sqlString.toString();
+	}	
+	
+	
+	public static String getArtComanda() {
+		StringBuilder sqlString = new StringBuilder();
+
+		sqlString.append(" select ar.nume, d.cantitate, d.um  from sapprd.zdocumentesms s, sapprd.zcomhead_tableta h, sapprd.zcomdet_tableta d, ");
+		sqlString.append(" articole ar where s.nr_bord =? and  s.adresa_client =? ");
+		sqlString.append(" and h.mandt='900' and d.mandt = '900' and s.idcomanda = h.id and h.id = d.id and ar.cod = d.cod ");
+		sqlString.append(" and lower(ar.nume) not like '%transport%' order by ar.nume");
+
+		return sqlString.toString();
+	}	
+	
+	
+	
 	public static String getVitezaMedieMF() {
 		StringBuilder str = new StringBuilder();
 
@@ -159,6 +256,16 @@ public class SqlQueries {
 		return str.toString();
 
 	}
+	
+
+	public static String getPozitieLivrare_Beta() {
+		StringBuilder str = new StringBuilder();
+
+		str.append(" select pozitie from sapprd.zordinelivrari where mandt='900' and borderou=? and codadresa=? ");
+
+		return str.toString();
+
+	}	
 
 	public static String addEstimare() {
 		StringBuilder str = new StringBuilder();

@@ -95,10 +95,7 @@ public class OperatiiClient {
 		return exista;
 
 	}
-	
-	
-	
-	
+
 	public boolean adresaClientExista(Connection conn, String codAdresa, String codClient) {
 
 		boolean exista = false;
@@ -126,8 +123,6 @@ public class OperatiiClient {
 		return exista;
 
 	}
-	
-	
 
 	public String getTimpSosireClient(String nrBorderou, String codClient) {
 		String strTimp = "";
@@ -214,6 +209,89 @@ public class OperatiiClient {
 
 	public BeanClient getCoordonateAdresa() {
 		return null;
+	}
+
+	public String getTimpSosireClient_Beta(String nrBorderou, String codAdresa) {
+		String strTimp = "";
+		double timpSosire = 0;
+
+		OperatiiMasina opMasina = new OperatiiMasina();
+		DateMasina dateMasina = opMasina.getDateMasinaBord(nrBorderou);
+
+		if (dateMasina.getTipMasina() == null)
+			return strTimp;
+
+		StareMasina stareMasina = opMasina.getStareMasina(nrBorderou);
+
+		if (stareMasina != null && stareMasina.getKilometraj() > 0) {
+
+			Set<BeanClient> listClienti = new OperatiiBorderou().getClientiBorderouFromDB(nrBorderou);
+
+			if (listClienti.isEmpty())
+				listClienti = new OperatiiBorderou().getClientiBorderouOnline(nrBorderou, stareMasina);
+
+			if (!listClienti.isEmpty()) {
+
+				timpSosire = new OperatiiClient().calculeazaTimpSosireClient_Beta(listClienti, stareMasina, dateMasina,
+						nrBorderou, codAdresa);
+
+				strTimp = DateTimeUtils.getStringTime(timpSosire);
+
+			}
+
+		}
+
+		if (timpSosire > 0 && timpSosire <= 6)
+			return strTimp;
+		else
+			return "";
+
+	}
+
+	private double calculeazaTimpSosireClient_Beta(Set<BeanClient> listClienti, StareMasina stareMasina,
+			DateMasina dateMasina, String nrBorderou, String codAdresa) {
+
+		double timpSosireH = 0;
+
+		int nrOpriri = new OperatiiBorderou().getPozitieLivrare_Beta(nrBorderou, codAdresa) - 1;
+
+		if (nrOpriri <= 0)
+			return 0;
+
+		double distantaTotal = 0;
+		double distParcursa = 0;
+
+		for (BeanClient client : listClienti) {
+
+			if (distantaTotal == 0 && distParcursa == 0) {
+				distParcursa = stareMasina.getKilometraj() - client.getInitKm();
+			}
+
+			distantaTotal += client.getDistClPrecedent() - distParcursa;
+
+			if (distantaTotal > 0 && distParcursa != 0)
+				distParcursa = 0;
+			else if (distantaTotal < 0) {
+				distParcursa = Math.abs(distantaTotal);
+				distantaTotal = 0;
+
+			}
+
+			if (distantaTotal > 0) {
+
+				timpSosireH = (distantaTotal) / dateMasina.getVitezaMedie();
+
+				timpSosireH += nrOpriri * Constants.getTimpStationareH(dateMasina.getTipMasina());
+
+				if (client.getCodAdresa().equals(codAdresa))
+					return timpSosireH;
+
+			}
+
+		}
+
+		return 0;
+
 	}
 
 }

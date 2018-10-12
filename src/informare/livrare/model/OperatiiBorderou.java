@@ -27,7 +27,7 @@ public class OperatiiBorderou {
 
 	private static final Logger logger = LogManager.getLogger(OperatiiBorderou.class);
 
-	public List<Articol> getArticoleComanda(String nrBorderou, String codClient) {
+	public List<Articol> getArticoleComanda_old(String nrBorderou, String codClient) {
 		List<Articol> listArticole = new ArrayList<>();
 
 		try (Connection conn = new DBManager().getProdDataSource().getConnection();
@@ -202,6 +202,31 @@ public class OperatiiBorderou {
 		return pozitieLivrare;
 	}
 
+	public int getPozitieLivrare_Beta(String nrBorderou, String codAdresa) {
+		int pozitieLivrare = 0;
+
+		try (Connection conn = new DBManager().getProdDataSource().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SqlQueries.getPozitieLivrare_Beta())) {
+
+			stmt.setString(1, nrBorderou);
+			stmt.setString(2, codAdresa);
+
+			stmt.executeQuery();
+
+			ResultSet rs = stmt.getResultSet();
+
+			while (rs.next()) {
+				pozitieLivrare = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			logger.error(informare.livrare.utils.Utils.getStackTrace(e));
+		}
+
+		return pozitieLivrare;
+	}	
+	
+	
 	public static void logEstimare(String codClient, String codBorderou, String estimare) {
 		try (Connection conn = new DBManager().getTestDataSource().getConnection();
 				PreparedStatement stmt = conn.prepareStatement(SqlQueries.addEstimare())) {
@@ -218,4 +243,71 @@ public class OperatiiBorderou {
 
 	}
 
+	public List<Articol> getArticoleComandaGED(String nrBorderou, String idComanda) {
+		List<Articol> listArticole = new ArrayList<>();
+
+		try (Connection conn = new DBManager().getProdDataSource().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SqlQueries.getArticoleComandaGED())) {
+
+			stmt.setString(1, nrBorderou);
+			stmt.setString(2, idComanda);
+
+			stmt.executeQuery();
+
+			ResultSet rs = stmt.getResultSet();
+
+			while (rs.next()) {
+
+				Articol articol = new Articol();
+
+				articol.setNume(rs.getString("nume"));
+				articol.setCantitate(rs.getString("kwmeng"));
+				articol.setUm(rs.getString("vrkme"));
+				listArticole.add(articol);
+
+			}
+
+		} catch (Exception ex) {
+			logger.error(informare.livrare.utils.Utils.getStackTrace(ex));
+
+		}
+
+		return listArticole;
+	}	
+	
+	
+	
+	public List<Articol> getArticoleComanda(String nrBorderou, String codAdresa) {
+		List<Articol> listArticole = new ArrayList<>();
+
+		try (Connection conn = new DBManager().getProdDataSource().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SqlQueries.getArtComanda())) {
+
+			stmt.setString(1, nrBorderou);
+			stmt.setString(2, codAdresa);
+
+			stmt.executeQuery();
+
+			ResultSet rs = stmt.getResultSet();
+
+			while (rs.next()) {
+
+				Articol articol = new Articol();
+
+				articol.setNume(rs.getString("nume"));
+				articol.setCantitate(rs.getString("cantitate"));
+				articol.setUm(rs.getString("um"));
+				listArticole.add(articol);
+
+			}
+
+		} catch (Exception ex) {
+			logger.error(informare.livrare.utils.Utils.getStackTrace(ex));
+
+		}
+
+		return listArticole;
+	}		
+	
+	
 }
