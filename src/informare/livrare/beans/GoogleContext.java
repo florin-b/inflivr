@@ -15,6 +15,8 @@ public class GoogleContext {
 	private static GeoApiContext instance3;
 	private static GeoApiContext instance4;
 	private static GeoApiContext instance5;
+	
+	private static GeoApiContext instanceKey;
 
 	private GoogleContext() {
 
@@ -40,6 +42,18 @@ public class GoogleContext {
 		}
 	}
 
+	public static GeoApiContext getContextKey() {
+		if (instanceKey == null) {
+			instanceKey = new GeoApiContext().setApiKey(Constants.GOOGLE_PAYED_KEY);
+			instanceKey.setQueryRateLimit(2);
+			instanceKey.setRetryTimeout(0, TimeUnit.SECONDS);
+			instanceKey.setConnectTimeout(1, TimeUnit.SECONDS);
+
+		}
+
+		return instanceKey;
+	}
+	
 	public static GeoApiContext getContext0() {
 
 		if (instance0 == null) {

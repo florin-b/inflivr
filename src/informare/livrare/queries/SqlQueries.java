@@ -277,5 +277,16 @@ public class SqlQueries {
 		return str.toString();
 
 	}
+	
+	public static String getAdresa(){
+		StringBuilder str = new StringBuilder();
+		
+		str.append(" select region, city1, street, name1 from sapprd.adrc where client = '900' and addrnumber = ? ");
+		
+		return str.toString();
+	}
+	
+	
+	
 
 }

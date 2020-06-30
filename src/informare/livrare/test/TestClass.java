@@ -15,7 +15,9 @@ public class TestClass {
 
 	public static void main(String[] args) {
 
-		String params = "0001903761-9010149334";
+		//http://localhost:8080/InformareLivrare/stat?p=0002231648-9013712806
+		
+		String params = "0002231648-9013712806";
 
 		String nrBorderou = params.split("-")[0];
 		String codAdresa = params.split("-")[1];
@@ -29,7 +31,11 @@ public class TestClass {
 
 		client = new OperatiiCoordonate().getCoordonateCodAdresa(nrBorderou, codAdresa);
 		
+		System.out.println("Client: " + client);
+		
 		articole = new OperatiiBorderou().getArticoleComanda(nrBorderou, codAdresa);
+		
+		
 		
 		/*
 		if (codAdresa.length() == 10) {
@@ -42,6 +48,7 @@ public class TestClass {
 		*/
 
 
+		/*
 		String estimareLivrare = new OperatiiClient().getTimpSosireClient_Beta(nrBorderou, codAdresa);
 		
 		System.out.println("Estimare livrare = " + estimareLivrare);
@@ -49,6 +56,9 @@ public class TestClass {
 		System.out.println("Articole = " + articole);
 		
 		System.out.println("Client = " + client);
+		*/
+		
+		//System.out.println(new OperatiiCoordonate().getCoordonateAdresaGoogle(new OperatiiCoordonate().getAdresa("9013507362")));
 		
 
 	}

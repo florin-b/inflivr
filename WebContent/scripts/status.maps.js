@@ -32,7 +32,7 @@ function afiseazaHarta() {
 
 	var masinaMarker = new google.maps.Marker({
 		position : pozMasina,
-		icon : 'images/pointer_car.png',
+		icon : 'images/blue_truck.png',
 	});
 
 	var clientMarker = new google.maps.Marker({
